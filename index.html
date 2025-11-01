@@ -247,7 +247,7 @@
             transform: scale(1.1);
         }
 
-        /* 移动端菜单样式 */
+        /* 移动端菜单样式 - 竖排下拉修改 */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -262,7 +262,9 @@
         }
 
         .mobile-menu.active {
-            height: 220px; /* 固定菜单高度，避免内容撑开异常 */
+            height: auto; /* 改为自动高度，适应竖排内容 */
+            max-height: 90vh; /* 限制最大高度，避免超出屏幕 */
+            padding-bottom: 1rem;
         }
 
         .menu-item {
@@ -287,24 +289,7 @@
             font-size: 1.1rem;
         }
 
-        /* 横排菜单滚动条美化 */
-        .mobile-menu .flex::-webkit-scrollbar {
-            height: 4px;
-        }
-
-        .mobile-menu .flex::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
-        }
-
-        .mobile-menu .flex::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-        }
-
-        .mobile-menu .flex::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
+        /* 移除横排菜单滚动条样式（竖排不需要） */
 
         /* 遮罩层样式 */
         .menu-overlay {
@@ -381,6 +366,7 @@
         html {
             scroll-behavior: smooth;
         }
+
     </style>
 </head>
 <body>
@@ -423,7 +409,7 @@
             </button>
         </div>
 
-        <!-- 移动端横排菜单 -->
+        <!-- 移动端竖排下拉菜单 -->
         <nav id="mobileMenu" class="mobile-menu">
             <!-- 关闭按钮 -->
             <div class="flex justify-end p-3 border-b border-primary/30">
@@ -431,30 +417,30 @@
                     <i class="fa fa-times text-xl"></i>
                 </button>
             </div>
-         <!-- 竖排菜单容器（核心修改：flex方向改为column，调整间距和对齐） -->
-    <div class="flex flex-col items-center justify-center py-4 px-6 space-y-4">
-        <a href="#ningde" class="menu-item whitespace-nowrap w-full justify-center" onclick="closeMenu()">
-            <i class="fa fa-map-marker menu-icon"></i>
-            宁德厂区
-        </a>
-        <a href="#fu'an" class="menu-item whitespace-nowrap w-full justify-center" onclick="closeMenu()">
-            <i class="fa fa-map-marker menu-icon"></i>
-            福安厂区
-        </a>
-        <a href="#luoyuan" class="menu-item whitespace-nowrap w-full justify-center" onclick="closeMenu()">
-            <i class="fa fa-map-marker menu-icon"></i>
-            罗源厂区
-        </a>
-        <a href="#contact" class="menu-item whitespace-nowrap w-full justify-center" onclick="closeMenu()">
-            <i class="fa fa-phone menu-icon"></i>
-            联系我们
-        </a>
-        <!-- 立即咨询按钮：单独加大间距，强化视觉突出 -->
-        <a href="tel:18059300218" class="menu-item bg-highlight/30 text-white font-medium whitespace-nowrap w-full justify-center mt-2" onclick="closeMenu()">
-            <i class="fa fa-phone-square menu-icon"></i>
-            立即咨询
-        </a>
-    </div>
+            <!-- 竖排菜单容器（flex改为column，全屏宽度，居中对齐） -->
+            <div class="flex flex-col px-6 py-4 space-y-3">
+                <a href="#ningde" class="menu-item w-full justify-start px-4" onclick="closeMenu()">
+                    <i class="fa fa-map-marker menu-icon"></i>
+                    宁德厂区
+                </a>
+                <a href="#fu'an" class="menu-item w-full justify-start px-4" onclick="closeMenu()">
+                    <i class="fa fa-map-marker menu-icon"></i>
+                    福安厂区
+                </a>
+                <a href="#luoyuan" class="menu-item w-full justify-start px-4" onclick="closeMenu()">
+                    <i class="fa fa-map-marker menu-icon"></i>
+                    罗源厂区
+                </a>
+                <a href="#contact" class="menu-item w-full justify-start px-4" onclick="closeMenu()">
+                    <i class="fa fa-phone menu-icon"></i>
+                    联系我们
+                </a>
+                <!-- 立即咨询按钮：强化视觉突出 -->
+                <a href="tel:18059300218" class="menu-item bg-highlight/30 text-white font-medium w-full justify-start px-4 mt-2" onclick="closeMenu()">
+                    <i class="fa fa-phone-square menu-icon"></i>
+                    立即咨询
+                </a>
+            </div>
         </nav>
 
         <!-- 菜单遮罩层 -->
