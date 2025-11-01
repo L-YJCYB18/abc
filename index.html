@@ -76,21 +76,46 @@
                 <a href="#contact" class="hover:text-light transition-colors">联系我们</a>
             </nav>
             
-            <!-- 移动端汉堡菜单（新增点击展开/收起） -->
-            <button id="menuBtn" class="md:hidden text-white text-xl focus:outline-none">
-                <i class="fa fa-bars"></i>
+        <!-- 移动端汉堡按钮 -->
+            <button id="hamburgerBtn" class="hamburger-btn md:hidden">
+                <i class="fa fa-bars text-xl" id="menuIcon"></i>
             </button>
         </div>
         
-        <!-- 移动端导航菜单（默认隐藏，点击展开） -->
-        <nav id="mobileMenu" class="md:hidden bg-primary/95 hidden">
-            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
-                <a href="#ningde" class="py-2 hover:text-light transition-colors">宁德厂区</a>
-                <a href="#fu'an" class="py-2 hover:text-light transition-colors">福安厂区</a>
-                <a href="#luoyuan" class="py-2 hover:text-light transition-colors">罗源厂区</a>
-                <a href="#contact" class="py-2 hover:text-light transition-colors">联系我们</a>
+        <!-- 移动端侧边菜单（默认隐藏） -->
+        <nav id="mobileMenu" class="mobile-menu">
+            <div class="flex justify-end p-4">
+                <button id="closeMenuBtn" class="hamburger-btn">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="flex flex-col">
+                <a href="#ningde" class="menu-item" onclick="closeMenu()">
+                    <i class="fa fa-map-marker menu-icon"></i>
+                    宁德厂区
+                </a>
+                <a href="#fu'an" class="menu-item" onclick="closeMenu()">
+                    <i class="fa fa-map-marker menu-icon"></i>
+                    福安厂区
+                </a>
+                <a href="#luoyuan" class="menu-item" onclick="closeMenu()">
+                    <i class="fa fa-map-marker menu-icon"></i>
+                    罗源厂区
+                </a>
+                <a href="#contact" class="menu-item" onclick="closeMenu()">
+                    <i class="fa fa-phone menu-icon"></i>
+                    联系我们
+                </a>
+                <!-- 新增：快速咨询入口（移动端专属） -->
+                <a href="tel:400-123-4567" class="menu-item bg-highlight/20 text-white font-medium">
+                    <i class="fa fa-phone-square menu-icon"></i>
+                    立即咨询：18059300218 17326651738
+                </a>
             </div>
         </nav>
+        
+        <!-- 菜单遮罩层（防止滚动穿透） -->
+        <div id="menuOverlay" class="menu-overlay"></div>
     </header>
 
     <!-- banner区域（强化视觉层级） -->
