@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汇聚人力招聘平台</title>
+    <!-- 外部资源引入（保持CDN稳定性） -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // Tailwind配置：精简主题扩展，保持色彩一致性
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',   // 主蓝色（品牌色）
+                        secondary: '#3B82F6', // 辅助蓝（强调色）
+                        light: '#DBEAFE',     // 浅蓝背景（弱化背景）
+                        highlight: '#F59E0B', // 高亮色（日结、长白班标识）
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'], // 统一无衬线字体
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            /* 保留核心自定义样式，删除可被Tailwind原生类替代的样式 */
+            .job-card-hover {
+                @apply transition-all duration-300 ease-in-out;
+            }
+            .job-card-hover:hover {
+                @apply -translate-y-1.5 shadow-lg shadow-primary/20;
+            }
+            .tag {
+                @apply inline-block px-2 py-1 text-xs font-semibold rounded-full mr-2;
+            }
+            .tag-daily {
+                @apply bg-highlight/10 text-highlight;
+            }
+            .tag-daywork {
+                @apply bg-green-100 text-green-700;
+            }
+            .tag-air {
+                @apply bg-blue-100 text-blue-700;
+            }
+            .tag-premium {
+                @apply bg-purple-100 text-purple-700;
+            }
+            .tag-free {
+                @apply bg-red-100 text-red-700;
+            }
+            .tag-sit {
+                @apply bg-pink-100 text-pink-700;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <!-- 顶部导航栏（新增移动端菜单交互） -->
+    <header class="bg-primary text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- 品牌Logo -->
+            <div class="flex items-center">
+                <i class="fa fa-users text-2xl mr-2"></i>
+                <h1 class="text-xl md:text-2xl font-bold">汇聚人力招聘平台</h1>
+            </div>
+            
+            <!-- 桌面端导航 -->
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#ningde" class="hover:text-light transition-colors">宁德厂区</a>
+                <a href="#fu'an" class="hover:text-light transition-colors">福安厂区</a>
+                <a href="#luoyuan" class="hover:text-light transition-colors">罗源厂区</a>
+                <a href="#contact" class="hover:text-light transition-colors">联系我们</a>
+            </nav>
+            
+            <!-- 移动端汉堡菜单（新增点击展开/收起） -->
+            <button id="menuBtn" class="md:hidden text-white text-xl focus:outline-none">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端导航菜单（默认隐藏，点击展开） -->
+        <nav id="mobileMenu" class="md:hidden bg-primary/95 hidden">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#ningde" class="py-2 hover:text-light transition-colors">宁德厂区</a>
+                <a href="#fu'an" class="py-2 hover:text-light transition-colors">福安厂区</a>
+                <a href="#luoyuan" class="py-2 hover:text-light transition-colors">罗源厂区</a>
+                <a href="#contact" class="py-2 hover:text-light transition-colors">联系我们</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- banner区域（强化视觉层级） -->
+    <section class="bg-secondary py-8 md:py-12">
+        <div class="container mx-auto px-4 text-center text-white">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">长期工/小时工 火热招聘中</h2>
+            <p class="text-light text-lg md:text-xl">多厂区可选 | 包吃住 | 高薪资福利 | 部分岗位日结</p>
+        </div>
+    </section>
+
+    <!-- 招聘主体内容（优化网格响应式，高亮关键信息） -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- 宁德厂区（移至前面，保持原有完整信息） -->
+        <section id="ningde" class="mb-12 scroll-mt-16">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-1 bg-primary mr-3"></div>
+                <h3 class="text-2xl font-bold text-primary">宁德厂区招聘</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 宁德新能源正式工 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-bolt"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宁德新能源（正式工）</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-premium">五险一金</p>
+                        <p class="tag tag-air">花园式工厂</p>
+                        <p><span class="font-medium">特别提醒：</span>员工报备名单需要提前扫码</p>
+                        <p><span class="font-medium">招聘要求：</span>18-45周岁（24周岁以下提供非学生证明），初中以上学历，男女不限，直接签本厂合同</p>
+                        <p><span class="font-medium">薪资待遇：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>一级作业员：底薪2600元，综合5900-6900元/月</li>
+                            <li>二级作业员：底薪2700元，综合6400-7600元/月（入职3个月可考）</li>
+                            <li>三级作业员：底薪2900元，综合7200-8600元/月（入职6个月可考）</li>
+                        </ul>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">免费住宿</span>，外宿补贴80元/人，夫妻外宿补贴300元/人，绩效津贴100-970元/月，地区补贴400元/月，夜班津贴20元/天，先吃后扣</p>
+                    </div>
+                </div>
+
+                <!-- 上汽东宏 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-car"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">上汽东宏</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daywork">长白班</p>
+                        <p><span class="font-medium">招聘岗位：</span>操作工、叉车工</p>
+                        <p><span class="font-medium">年龄要求：</span>18-45周岁，男女不限</p>
+                        <p><span class="font-medium">岗位要求：</span>需认识26个英文字母，需体检，站立式工作</p>
+                        <p><span class="font-medium">薪资待遇：</span>操作工19元/时（235元/天含餐补），叉车工24元/时，综合5500-6500元/月</p>
+                        <p><span class="font-medium">工作时间：</span>8:00-20:00，长白班</p>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">包吃住（4人间）</span>，独立卫生间</p>
+                        <p><span class="font-medium">面试时间：</span>中午12:30（办公室集合）</p>
+                        <p><span class="font-medium">注意：</span>面试者不能穿短裤、拖鞋、凉鞋</p>
+                    </div>
+                </div>
+
+                <!-- 宁德亚杰 三方质检员 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-check-circle"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宁德亚杰 三方质检员</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daily">3天后日结</p>
+                        <p><span class="font-medium">年龄要求：</span>男女不限，18-40周岁</p>
+                        <p><span class="font-medium">体检要求：</span>不体检，面试通过第二天可上班</p>
+                        <p><span class="font-medium">薪资待遇：</span>白班20元/时，夜班21元/时，月工时330左右，<span class="text-primary font-semibold">综合6500-7500元/月</span></p>
+                        <p><span class="font-medium">工作时间：</span>两班倒</p>
+                        <p><span class="font-medium">福利：</span>提供住宿150元/月（不管吃住，需自备电动车）</p>
+                        <p><span class="font-medium">工作地点：</span>湖东、湖西、Z基地、博发物流园等</p>
+                        <p><span class="font-medium">面试时间：</span>上午9点、下午3点</p>
+                    </div>
+                </div>
+
+                <!-- 车里湾KS三方质检 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-check-square-o"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">车里湾KS三方质检</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daily">7天后日结</p>
+                        <p class="tag tag-air">恒温车间</p>
+                        <p><span class="font-medium">工作内容：</span>手工活，工作轻松</p>
+                        <p><span class="font-medium">年龄要求：</span>男女不限，18-38周岁</p>
+                        <p><span class="font-medium">体检要求：</span>不用体检</p>
+                        <p><span class="font-medium">薪资待遇：</span>白班21元/时，夜班22元/时，<span class="text-primary font-semibold">综合6000-7000元/月</span></p>
+                        <p><span class="font-medium">工作时间：</span>白班8:00-20:00，夜班20:00-8:00</p>
+                        <p><span class="font-medium">福利：</span>提供住宿，住宿费150元/月</p>
+                        <p><span class="font-medium">面试时间：</span>上午9点、下午1点</p>
+                    </div>
+                </div>
+
+                <!-- 宁德卓高新材料科技有限公司（删除了入职奖励3000元标签和相关描述） -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-industry"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宁德卓高新材料科技有限公司</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p><span class="font-medium">公司简介：</span>生产隔离膜等新型材料，为ATL/CATL供应电池原材料</p>
+                        <p><span class="font-medium">招聘类型：</span>正式工、派遣工、小时工（大量招聘）</p>
+                        <p><span class="font-medium">年龄要求：</span>18-40周岁，男女不限，初中及以上学历</p>
+                        <p><span class="font-medium">薪资待遇：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>正式工：底薪2045元+加班费+超产奖励3000-8000元，<span class="text-primary font-semibold">8000-15000元/月</span>，五险一金</li>
+                            <li>派遣工：薪资同正式工，<span class="text-primary font-semibold">8000-15000元/月</span>，商业保险，每周可预支500元</li>
+                            <li>小时工：28元/时（持续6个月），综合收入可观</li>
+                        </ul>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">提供住宿</span>，伙食补贴最高720元/月，4人间宿舍，夫妻房或外宿补贴600元/月</p>
+                        <p><span class="font-medium">发薪日：</span>每月20号</p>
+                        <p><span class="font-medium">体检要求：</span>体检费140元，入职满1个月报销</p>
+                        <p><span class="font-medium">工作地点：</span>宁德市蕉城区东侨工业开发区</p>
+                        <p><span class="font-medium">服务：</span>提供入职前免费接送、免费住宿</p>
+                    </div>
+                </div>
+
+                <!-- 宁德康本科技有限公司 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-industry"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宁德康本科技有限公司</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daily">3天后日结</p>
+                        <p><span class="font-medium">公司简介：</span>生产电池箱体，为宁德时代CATL供应原材料</p>
+                        <p><span class="font-medium">招聘类型：</span>正式工、派遣工、小时工（大量招聘）</p>
+                        <p><span class="font-medium">年龄要求：</span>男女不限，18-50周岁，会识字</p>
+                        <p><span class="font-medium">核心岗位薪资：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>模压：两人计件，8000-9000元/月</li>
+                            <li>铺层：集体计件（空调车间），7000-8000元/月</li>
+                            <li>返修：个人计件，8000元+/月</li>
+                            <li>小时工：24元/时，综合7500-8000元/月</li>
+                            <li>长白班岗位：终检检验、包装，6000-7500元/月</li>
+                        </ul>
+                        <p><span class="font-medium">学习期：</span>前5-7天150元/天，两班倒</p>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">包吃包住（4人间）</span>，正式工缴五险</p>
+                        <p><span class="font-medium">发薪日：</span>正式工15号，派遣工/小时工25号（每周可预支500元）</p>
+                        <p><span class="font-medium">体检要求：</span>正式工/派遣工需体检，小时工不用体检</p>
+                        <p><span class="font-medium">服务：</span>提供入职前免费接送、免费住宿</p>
+                    </div>
+                </div>
+
+                <!-- 宁德丹诺西诚电子科技有限公司 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-microchip"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宁德丹诺西诚电子科技有限公司</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daily">3天后日结</p>
+                        <p class="tag tag-air">恒温空调车间</p>
+                        <p><span class="font-medium">公司简介：</span>生产汽车空调控制器模块，为上汽和宁德时代供应原材料</p>
+                        <p><span class="font-medium">招聘岗位：</span>长期小时工</p>
+                        <p><span class="font-medium">年龄要求：</span>男女不限，16-50周岁，初中文化</p>
+                        <p><span class="font-medium">体检要求：</span>需要体检，不查明显烟疤纹身</p>
+                        <p><span class="font-medium">薪资待遇：</span>白夜班19元/时，夜班补贴42元/晚，<span class="text-primary font-semibold">综合6500-7800元/月</span></p>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">包吃包住（4-6人间）</span>，外宿补贴300元/月，班车接送</p>
+                        <p><span class="font-medium">发薪日：</span>每月20号（每周可预支500元）</p>
+                        <p><span class="font-medium">注意：</span>入职不满7天自离无工资</p>
+                        <p><span class="font-medium">服务：</span>提供面试前免费接送、免费住宿</p>
+                    </div>
+                </div>
+
+                <!-- 宁德振华振德汽车部件有限公司 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-car"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宁德振华振德汽车部件有限公司</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daily">3天后日结</p>
+                        <p><span class="font-medium">公司简介：</span>生产汽车配件，为上汽集团宁德基地供应原材料</p>
+                        <p><span class="font-medium">招聘岗位：</span>小时工、叉车工</p>
+                        <p><span class="font-medium">年龄要求：</span>男生，20-45周岁，能吃苦耐劳</p>
+                        <p><span class="font-medium">岗位要求：</span>叉车工需携带叉车证，熟练操作油电两用叉车</p>
+                        <p><span class="font-medium">薪资待遇：</span>25元/时（前10天试用期22元/时），夜班补贴10元/晚，<span class="text-primary font-semibold">综合7500-9000元/月</span></p>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">包吃包住（4人间）</span>，外宿补贴200元/月，高温补贴200元/月（7-9月），9-12月满勤奖励300元/月</p>
+                        <p><span class="font-medium">发薪日：</span>每月20号（每周可预支500元），转正缴五险一金</p>
+                        <p><span class="font-medium">工作地点：</span>宁德上汽工业园区内</p>
+                        <p><span class="font-medium">服务：</span>提供入职前免费接送、免费住宿</p>
+                    </div>
+                </div>
+
+                <!-- 宁德时代供应商 质检员 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-check-circle"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宁德时代供应商 质检员</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daily">3天后日结</p>
+                        <p><span class="font-medium">公司简介：</span>从事宁德时代锂电池原材料检测工作</p>
+                        <p><span class="font-medium">招聘岗位：</span>质检员（生熟手均可）</p>
+                        <p><span class="font-medium">年龄要求：</span>男女不限，18-45周岁</p>
+                        <p><span class="font-medium">体检要求：</span>不需要体检</p>
+                        <p><span class="font-medium">薪资待遇：</span>白班21元/时，夜班22元/时，<span class="text-primary font-semibold">综合7000-8000元/月</span></p>
+                        <p><span class="font-medium">工作时间：</span>每天11小时</p>
+                        <p><span class="font-medium">福利：</span>提供4人间住宿（水电均摊），外宿补贴200元/月</p>
+                        <p><span class="font-medium">发薪日：</span>每月15号（每周可预支500元）</p>
+                        <p><span class="font-medium">工作地点：</span>宁德蕉城时代新能源车里湾基地</p>
+                        <p><span class="font-medium">服务：</span>提供入职前免费接送、免费住宿</p>
+                    </div>
+                </div>
+
+                <!-- 福鼎市凯欣电池材料有限公司 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-industry"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">福鼎市凯欣电池材料有限公司</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p><span class="font-medium">公司简介：</span>为CATL/ATL供应电池用电解液产品，订单充足</p>
+                        <p><span class="font-medium">招聘岗位：</span>小时工、普工</p>
+                        <p><span class="font-medium">年龄要求：</span>男性，25-40周岁，初中及以上学历</p>
+                        <p><span class="font-medium">工作要求：</span>能适应两班倒（每月倒班一次）</p>
+                        <p><span class="font-medium">薪资待遇：</span>白夜班20元/时，<span class="text-primary font-semibold">综合6000-7500元/月</span></p>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">免费提供两餐工作餐、包住（4-6人间）</span>，水电均摊</p>
+                        <p><span class="font-medium">发薪日：</span>每月25号（每周可预支500元）</p>
+                        <p><span class="font-medium">工作地点：</span>福鼎市龙安工业区</p>
+                        <p><span class="font-medium">服务：</span>提供入职前免费接送、免费住宿</p>
+                    </div>
+                </div>
+
+                <!-- 宁德安费诺电子有限公司 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-cable-car"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宁德安费诺电子有限公司</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daily">3天后日结</p>
+                        <p class="tag tag-air">恒温车间</p>
+                        <p><span class="font-medium">公司简介：</span>生产电池隔离板、汽车线束为主</p>
+                        <p><span class="font-medium">招聘类型：</span>长期小时工、质检员正式工</p>
+                        <p><span class="font-medium">年龄要求：</span>普工18-50周岁，质检员需有QA/QC相关工作经验</p>
+                        <p><span class="font-medium">薪资待遇：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>小时工：白班18元/时，夜班19元/时+补贴21元/晚，综合5800-7000元/月</li>
+                            <li>质检员（正式工）：底薪2450-2700元+加班费+绩效，<span class="text-primary font-semibold">6000-9000元/月</span></li>
+                        </ul>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">包吃包住（4-6人间）</span>，正式工缴五险一金，住宿50元/月+水电均摊</p>
+                        <p><span class="font-medium">发薪日：</span>每月5号（小时工每周可预支500元）</p>
+                        <p><span class="font-medium">面试时间：</span>早上9点、下午1点（需提前集合）</p>
+                        <p><span class="font-medium">工作地点：</span>东侨工业开发区宁一大厦附近</p>
+                        <p><span class="font-medium">注意：</span>入职不满7天自离无工资</p>
+                    </div>
+                </div>
+
+                <!-- 宁德嘉晨正式工 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-box"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宁德嘉晨（正式工）</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daywork">部分长白班</p>
+                        <p class="tag tag-premium">六险一金</p>
+                        <p><span class="font-medium">招聘岗位：</span>普工</p>
+                        <p><span class="font-medium">年龄要求：</span>18-42岁，男女不限</p>
+                        <p><span class="font-medium">入职要求：</span>征信正常，需体检，会写26个英文字母，住宿押金200元</p>
+                        <p><span class="font-medium">薪资待遇：</span>底薪2310元+技能津贴300-1800元+绩效0-500元+夜班津贴30元/班+工龄100-500元，<span class="text-primary font-semibold">6500-7300元/月</span></p>
+                        <p><span class="font-medium">福利：</span>提供住宿（外宿补贴100元），餐补（白班38元、夜班58元）</p>
+                        <p><span class="font-medium">发薪日：</span>每月15号</p>
+                        <p><span class="font-medium">工作地点：</span>宁德市增坂村附近</p>
+                        <p><span class="font-medium">面试时间：</span>上午10点、下午2点半</p>
+                    </div>
+                </div>
+
+                <!-- 宁德亚南 电焊工 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-wrench"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宁德亚南 电焊工</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-premium">五险一金</p>
+                        <p><span class="font-medium">技能要求：</span>看图纸拼装，二保焊焊接，角磨机打磨</p>
+                        <p><span class="font-medium">年龄要求：</span>50岁内，体力好可放宽到53岁</p>
+                        <p><span class="font-medium">工作环境：</span>有风扇，有粉尘噪音，免费发放劳保用品</p>
+                        <p><span class="font-medium">工作时间：</span>长白班8-10小时，周日休息</p>
+                        <p><span class="font-medium">薪资待遇：</span>班组计件，<span class="text-primary font-semibold">7000-12000元/月</span>（扣除五险一金700元后），年度平均约10000元/月</p>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">免费3人间住宿</span>，餐补7元/天，过节费，高温补贴</p>
+                        <p><span class="font-medium">禁忌：</span>传染性肝病、突发性心脏病、花臂纹身、刑事案底</p>
+                        <p><span class="font-medium">工作地点：</span>宁德市东侨开发区</p>
+                    </div>
+                </div>
+
+                <!-- 上汽劲松汽车零部件 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-car"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">上汽劲松汽车零部件</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p><span class="font-medium">招聘岗位：</span>普工、质检</p>
+                        <p><span class="font-medium">年龄要求：</span>20-50周岁，男女不限</p>
+                        <p><span class="font-medium">工作时间：</span>白班11小时计薪，夜班12小时计薪</p>
+                        <p><span class="font-medium">薪资待遇：</span>20元/时，夜班补贴21元，<span class="text-primary font-semibold">综合6500-7500元/月</span></p>
+                        <p><span class="font-medium">额外补贴：</span>交通津贴200元，外住津贴200元，全勤200元（做满26天）</p>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">包吃</span>，住宿4人间（空调、洗衣机、无线网、独立卫生间），班车接送</p>
+                        <p><span class="font-medium">预支：</span>每周可预支1000元</p>
+                        <p><span class="font-medium">发薪日：</span>次月20号</p>
+                        <p><span class="font-medium">面试时间：</span>随时面试</p>
+                    </div>
+                </div>
+
+                <!-- 上汽配套厂 易驰 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-car"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">上汽配套厂 易驰</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daywork">长白班</p>
+                        <p><span class="font-medium">工作内容：</span>汽车顶棚装配等，工作较轻松</p>
+                        <p><span class="font-medium">年龄要求：</span>18-50周岁，男工为主，身体健康</p>
+                        <p><span class="font-medium">工作时间：</span>8:00-20:00，计薪11小时</p>
+                        <p><span class="font-medium">薪资待遇：</span>19元/时，<span class="text-primary font-semibold">综合6000+元/月</span></p>
+                        <p><span class="font-medium">额外补贴：</span>外宿补贴200元，交通补贴100元</p>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">包吃住</span>，4人间宿舍（空调、独立卫生间、热水器、无线网），班车接送</p>
+                    </div>
+                </div>
+
+                <!-- 增坂莱普集成部 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-cube"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">增坂莱普集成部</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-air">空调车间</p>
+                        <p><span class="font-medium">招聘岗位：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>集成部：打螺丝、贴标签、扎线、打包（男女不限）</li>
+                            <li>吸塑部：打片、数片（只限女工，可坐）</li>
+                        </ul>
+                        <p><span class="font-medium">年龄要求：</span>集成部18-45岁，吸塑部18-53岁</p>
+                        <p><span class="font-medium">岗位要求：</span>识字、识26个英文字母</p>
+                        <p><span class="font-medium">薪资待遇：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>集成部：白班18元/时，夜班19元/时，<span class="text-primary font-semibold">6500-7800元/月</span></li>
+                            <li>吸塑部：白班17元/时，夜班18元/时，工时350+</li>
+                        </ul>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">包吃住（一日三餐四菜一汤）</span>，4人间宿舍（空调、热水器）</p>
+                        <p><span class="font-medium">面试时间：</span>上午10点、下午3点（面试通过隔天入职）</p>
+                    </div>
+                </div>
+
+                <!-- 宁德壹连电子科技 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-microchip"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宁德壹连电子科技</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daily">3天后日结</p>
+                        <p class="tag tag-air">恒温车间</p>
+                        <p><span class="font-medium">公司简介：</span>宁德时代供应商，生产电芯连接组件等产品</p>
+                        <p><span class="font-medium">招聘岗位：</span>长期小时工</p>
+                        <p><span class="font-medium">年龄要求：</span>男女不限，18-50周岁，初中学历</p>
+                        <p><span class="font-medium">岗位特点：</span>有站有坐，不穿无尘服，每2小时休息10分钟，工作轻松</p>
+                        <p><span class="font-medium">薪资待遇：</span>白夜班18元/时，餐补400元/月，<span class="text-primary font-semibold">综合6000-7500元/月</span></p>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">提供吃住</span>，4-6人间宿舍，月休2-4天</p>
+                        <p><span class="font-medium">发薪日：</span>每月25号（每周可预支500元）</p>
+                        <p><span class="font-medium">体检要求：</span>需要体检</p>
+                        <p><span class="font-medium">注意：</span>入职不满7天自离无工资</p>
+                        <p><span class="font-medium">工作地点：</span>宁德市东侨工业开发区幸福家园小区旁</p>
+                    </div>
+                </div>
+
+                <!-- 福建宁德科达利 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-industry"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">福建宁德科达利</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p><span class="font-medium">招聘岗位：</span>普工、质检、看机器、辅助机器生产等（4个部门可选）</p>
+                        <p><span class="font-medium">年龄要求：</span>男女不限，18-55周岁</p>
+                        <p><span class="font-medium">工作环境：</span>坐班空调车间，普通工衣，不带工帽</p>
+                        <p><span class="font-medium">工作内容：</span>新能源铝壳、顶盖产品的生产、检验，简单易学</p>
+                        <p><span class="font-medium">薪资待遇：</span>底薪2300元+加班费（平时19.8元/时，周末26.4元/时，法定39.6元/时）+绩效+工龄奖+超产奖200-500元+夜班补贴10元/天，<span class="text-primary font-semibold">6500-8000元/月（最高可达9000元）</span></p>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">免费住宿（6-8人间）</span>，餐补600元/月</p>
+                        <p><span class="font-medium">发薪日：</span>每月25号</p>
+                        <p><span class="font-medium">预支：</span>做满7天可预支工资</p>
+                    </div>
+                </div>
+
+                <!-- 宁德其他在招厂区 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover col-span-1 md:col-span-2 lg:col-span-3">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-list"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宁德其他在招厂区</h4>
+                    </div>
+                    <p class="text-gray-700 text-lg">壹连电子、安费诺、晟硕、得一、上汽延峰、劲松、宏协、安吉、宝陆、振华等（详情咨询区域负责人）</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 新增福安厂区板块 -->
+        <section id="fu'an" class="mb-12 scroll-mt-16">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-1 bg-primary mr-3"></div>
+                <h3 class="text-2xl font-bold text-primary">福安厂区招聘</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 宏协（福安） -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-industry"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">宏协（福安）</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daily">5天后日结</p>
+                        <p><span class="font-medium">公司简介：</span>福安新能源供应商，主要生产汽车零配件</p>
+                        <p><span class="font-medium">招聘岗位：</span>普工10人、终检5人（女工）、CNC数控普工、清洗、打磨</p>
+                        <p><span class="font-medium">年龄要求：</span>18-55岁，男女不限（CNC限男）</p>
+                        <p><span class="font-medium">薪资待遇：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>普工：19元/时，219元/天，综合6500-7500元/月</li>
+                            <li>CNC数控普工：前期19元/时+后期计件+夜班补贴，综合7000-11000元/月</li>
+                        </ul>
+                        <p><span class="font-medium">计薪方式：</span>白班11.5小时，夜班12小时</p>
+                        <p><span class="font-medium">福利：</span>包工作餐，住宿150元/月（水电均摊），转正买五险</p>
+                        <p><span class="font-medium">发薪日：</span>普工15号，CNC数控普工25号</p>
+                        <p><span class="font-medium">面试时间：</span>随时</p>
+                        <p><span class="font-medium">工作地点：</span>福安罗江</p>
+                    </div>
+                </div>
+
+                <!-- 福安天铭新能源 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-battery-full"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">福安天铭新能源</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p><span class="font-medium">公司简介：</span>主要做汽车锂电池托盘</p>
+                        <p><span class="font-medium">招聘岗位：</span>操作工、质检</p>
+                        <p><span class="font-medium">年龄要求：</span>男女不限，18-50周岁，要识字，视力良好</p>
+                        <p><span class="font-medium">工作要求：</span>能适应两班倒，服从管理</p>
+                        <p><span class="font-medium">薪资待遇：</span>小时工19元/时+夜班补贴10元/天，熟练后可计件，<span class="text-primary font-semibold">综合7000-10000元/月</span></p>
+                        <p><span class="font-medium">工作地点：</span>福安罗江工业区</p>
+                        <p><span class="font-medium">面试时间：</span>上午9:00、下午1:00（直接到厂，全天可面试）</p>
+                    </div>
+                </div>
+
+                <!-- 福安时代供应商（震裕） -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-industry"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">福安时代供应商（震裕）</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daily">可日结</p>
+                        <p class="tag tag-air">恒温车间</p>
+                        <p><span class="font-medium">招聘岗位：</span>拉伸、插纸、全检、目检、打包</p>
+                        <p><span class="font-medium">年龄要求：</span>16-55周岁，男女不限，不限学历</p>
+                        <p><span class="font-medium">体检要求：</span>需要3个月以内的体检报告</p>
+                        <p><span class="font-medium">薪资待遇：</span>白班18元/时，夜班19元/时，月工时330左右，<span class="text-primary font-semibold">综合5800-7400元/月</span></p>
+                        <p><span class="font-medium">福利：</span>提供住宿</p>
+                        <p><span class="font-medium">服务：</span>免费送至厂区，当天安排住宿</p>
+                        <p><span class="font-medium">工作地点：</span>福安震裕</p>
+                        <p><span class="font-medium">面试时间：</span>下午1点</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 罗源厂区（重新整理，按最新信息更新） -->
+        <section id="luoyuan" class="mb-12 scroll-mt-16">
+            <!-- 区域标题（统一样式） -->
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-1 bg-primary mr-3"></div>
+                <h3 class="text-2xl font-bold text-primary">罗源厂区招聘</h3>
+            </div>
+            
+            <!-- 岗位卡片网格（保持响应式布局） -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 福建东恒新能源集团 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-building"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">福建东恒新能源集团</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daywork">长白班可选</p>
+                        <p class="tag tag-air">吃住在厂</p>
+                        <p><span class="font-medium">地理位置：</span>🚗距离罗源高铁站5分钟车程</p>
+                        <p><span class="font-medium">岗位需求：</span>18～50周岁，女工为主</p>
+                        <p><span class="font-medium">主要岗位：</span>贴TC、贴泡棉、擦片、刮毛刺、CCS</p>
+                        <p><span class="font-medium">任职要求：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>1. 认识字</li>
+                            <li>2. 手脚反应灵敏</li>
+                            <li>3. 工作认真负责，吃苦耐劳</li>
+                        </ul>
+                        <p><span class="font-medium">薪资待遇：</span><span class="text-primary font-semibold">5500-6500元/月</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>白班：17元/小时</li>
+                            <li>夜班：17元/小时+1元/时夜班补贴+绩效奖</li>
+                        </ul>
+                        <p><span class="font-medium">福利：</span><span class="text-green-600">免费吃一日四餐，吃住在厂便捷</span>，水电费平摊</p>
+                        <p><span class="font-medium">工资发放：</span>每月15号，可预支</p>
+                        <p><span class="font-medium">面试须知：</span>带身份证原件，严禁穿拖鞋、短裤、裙子</p>
+                        <p><span class="font-medium">对接方式：</span>名单报备，驻厂对接</p>
+                    </div>
+                </div>
+
+                <!-- 罗源国企福蓉源 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-building-o"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">罗源国企福蓉源</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-premium">缴纳五险</p>
+                        <p class="tag tag-air">稳岗推荐</p>
+                        <p><span class="font-medium">核心优势：</span>✅福利好、晋升快！</p>
+                        <p><span class="font-medium">薪资待遇：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>新手收入：4000-6000元/月（底薪+计件）</li>
+                            <li>熟练工待遇：<span class="text-primary font-semibold">6000-8000元/月</span>（底薪+计件）</li>
+                        </ul>
+                        <p><span class="font-medium">任职要求：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>男性，25-40岁</li>
+                            <li>初中及以上学历</li>
+                            <li>身体健康，能接受倒班工作</li>
+                        </ul>
+                        <p><span class="font-medium">工作时间：</span>三班两倒，上四休二</p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>白班：8:30-20:30</li>
+                            <li>夜班：20:30-8:30</li>
+                        </ul>
+                        <p><span class="font-medium">福利待遇：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>1. 缴纳五险（半年后交一金）</li>
+                            <li>2. 提供员工宿舍（拎包入住）</li>
+                            <li>3. 餐补20元/天（每月400-600元，半数随工资发放，半数打入餐卡）</li>
+                        </ul>
+                        <p><span class="font-medium">职业发展：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>完善的岗前培训与技术练兵，优秀员工可成为核心技术骨干</li>
+                            <li>晋升通道清晰：普工 → 班长 → 作业长 → 部门领导</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 罗源峰梅新能源工厂 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-bolt"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">罗源峰梅新能源工厂</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-air">两班倒</p>
+                        <p><span class="font-medium">工作内容：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>1️⃣操作机台（操作折弯机、去皮机等）</li>
+                            <li>2️⃣手工活（编胶带、贴泡棉等）</li>
+                            <li>3️⃣质检员（检查产品尺寸、外观）</li>
+                        </ul>
+                        <p><span class="font-medium">薪资结构：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>白班：18元/小时</li>
+                            <li>夜班：18元/小时+夜班补贴15元/天</li>
+                            <li>综合月薪：<span class="text-primary font-semibold">5500-7000元/月</span></li>
+                            <li>当日工时结合班产定额完成情况核算</li>
+                        </ul>
+                        <p><span class="font-medium">面试要求：</span>18-45岁，接受加班</p>
+                        <p><span class="font-medium">食宿餐补：</span><span class="text-green-600">包吃包住</span>，水电平摊</p>
+                        <p><span class="font-medium">工作地点：</span>罗源南平铝业附近</p>
+                        <p><span class="font-medium">工作时间：</span>8:30-20:30，20:30-8:30</p>
+                        <p><span class="font-medium">面试时间：</span>早上10:00，下午2:00</p>
+                    </div>
+                </div>
+
+                <!-- 罗源德佳新能源有限公司 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-industry"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">罗源德佳新能源有限公司</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-free">免体检</p>
+                        <p class="tag tag-air">空调车间</p>
+                        <p class="tag tag-sit">坐班</p>
+                        <p><span class="font-medium">年龄要求：</span>18-50周岁，男女不限</p>
+                        <p><span class="font-medium">薪资待遇：</span><span class="text-primary font-semibold">5000-6500元/月</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>男工开机岗位：18元/小时</li>
+                            <li>仓管岗位：18元/小时</li>
+                            <li>女工包装拼接岗位：17元/小时</li>
+                        </ul>
+                        <p><span class="font-medium">食宿福利：</span><span class="text-green-600">包吃包住</span></p>
+                        <p><span class="font-medium">工作时间：</span>8:00-20:00两班倒，女工拼接岗位长白班</p>
+                        <p><span class="font-medium">工作内容：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>女工：拼接、包装、热压等手工活，坐班</li>
+                            <li>男工：开机、看机台、上下料</li>
+                        </ul>
+                        <p><span class="font-medium">入职须知：</span>不体检，面试过后第二天即可入职</p>
+                    </div>
+                </div>
+
+                <!-- 罗源昌博集装箱 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-ship"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">罗源昌博集装箱</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-free">免体检入职</p>
+                        <p><span class="font-medium">招聘岗位：</span>女普工、男普工、焊工</p>
+                        <p><span class="font-medium">岗位详情：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>
+                                <span class="font-medium">1. 女普工：</span><br>
+                                18-48周岁，长白班<br>
+                                工作内容：点胶，需要踩1.5米左右的梯子<br>
+                                薪资：前两个月月工时230小时，保底工资4500元；当月上班超过230小时，按20元/小时计算加班<br>
+                                福利：包吃两餐
+                            </li>
+                            <li>
+                                <span class="font-medium">2. 男普工：</span><br>
+                                18-50周岁，刚进去白班，后续需要配合倒班<br>
+                                薪资：前两个月根据岗位不同保底工资5000-6000元
+                            </li>
+                            <li>
+                                <span class="font-medium">3. 焊工：</span><br>
+                                要求：有焊工证，面试需要看技术<br>
+                                薪资：保底35元/小时，<span class="text-primary font-semibold">月薪8000-12000元</span>
+                            </li>
+                        </ul>
+                        <p><span class="font-medium">上班时间：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>正常班：7:50-11:30，13:00-17:30</li>
+                            <li>加班：18:00-20:30（偶尔需要）</li>
+                        </ul>
+                        <p><span class="font-medium">入职须知：</span>入职七天后有意愿做的陆续安排体检，体检费110元左右，每月扣商保100元</p>
+                    </div>
+                </div>
+
+                <!-- 福州罗源智洪新能源企业 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-bolt"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">福州罗源智洪新能源企业</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-daywork">长白班可选</p>
+                        <p><span class="font-medium">岗位类型：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>巡检和刮毛刺：长白班</li>
+                            <li>CNC及切料岗位：两班倒（一个月倒一次）</li>
+                        </ul>
+                        <p><span class="font-medium">招聘要求：</span>男女不限16-55周岁</p>
+                        <p><span class="font-medium">薪资待遇：</span><span class="text-primary font-semibold">5500-6500元/月</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>17元/小时，11小时记工薪+超产奖+绩效</li>
+                            <li>次月30号发薪，每周可预支工资500元</li>
+                        </ul>
+                        <p><span class="font-medium">工作福利：</span></p>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>不穿无尘服，可带手机</li>
+                            <li>包吃住（水电费人均100元/月）</li>
+                            <li>上班期间每天餐补15元</li>
+                        </ul>
+                        <p><span class="font-medium">上班时间：</span>八对八（8:00-20:00）</p>
+                        <p><span class="font-medium">其他费用：</span>商保80元/月（自费）</p>
+                        <p><span class="font-medium">注意事项：</span>⚠️自离无工资</p>
+                    </div>
+                </div>
+
+                <!-- 罗源德米特塑胶厂 -->
+                <div class="bg-white rounded-lg p-5 shadow-md job-card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-8 h-8 bg-light rounded-full flex items-center justify-center text-primary mr-2">
+                            <i class="fa fa-cube"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold">罗源德米特塑胶厂</h4>
+                    </div>
+                    <div class="space-y-2 text-gray-700">
+                        <p class="tag tag-air">两班倒</p>
+                        <p><span class="font-medium">面试安排：</span>今天可面试</p>
+                        <p><span class="font-medium">招聘要求：</span>男女不限，18-50周岁，视力要好</p>
+                        <p><span class="font-medium">薪资待遇：</span>17元/时+1元/时餐补，<span class="text-primary font-semibold">综合薪资可观</span></p>
+                        <p><span class="font-medium">发放时间：</span>次月30日发薪</p>
+                        <p><span class="font-medium">工作时间：</span>8:00-20:00，20:00-8:00，记薪11.5小时，14天倒班</p>
+                        <p><span class="font-medium">主要岗位：</span>开机，质检，包装</p>
+                        <p><span class="font-medium">食宿情况：</span>不包吃住</p>
+                        <p><span class="font-medium">其他费用：</span>保险自费80元/月</p>
+                        <p><span class="font-medium">工作地点：</span>时代软包装后面</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+ <!-- 联系我们（最终优化版：现代风格+交互增强+响应式适配） -->
+<section id="contact" class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
+    <!-- 装饰元素：提升层次感 -->
+    <div class="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-bl-full -z-10"></div>
+    
+    <!-- 标题区域：强化视觉焦点 -->
+    <div class="flex items-center mb-10 relative">
+        <div class="w-12 h-2 bg-primary rounded-full mr-4 transform hover:scale-x-125 transition-transform duration-300"></div>
+        <h3 class="text-[clamp(1.5rem,3vw,2.2rem)] font-bold text-primary tracking-wide">联系我们</h3>
+    </div>
+
+    <!-- 联系电话区域：卡片式布局 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 宁德区域卡片 -->
+        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-100 hover:border-primary/20">
+            <div class="flex items-center mb-5">
+                <div class="w-14 h-14 bg-primary/15 rounded-full flex items-center justify-center text-primary mr-5 transition-all duration-300 hover:bg-primary hover:text-white">
+                    <i class="fa fa-phone-square text-2xl"></i>
+                </div>
+                <h5 class="font-semibold text-gray-800 text-xl">宁德区域</h5>
+            </div>
+            <ul class="space-y-4 text-gray-700 pl-19">
+                <li><a href="tel:18537912136" class="hover:text-primary transition-colors flex items-center group">
+                    <i class="fa fa-user-o mr-3 text-gray-400 group-hover:text-primary transition-colors"></i>
+                    <span class="group-hover:underline">曾亚南：18537912136</span>
+                </a></li>
+                <li><a href="tel:13365026880" class="hover:text-primary transition-colors flex items-center group">
+                    <i class="fa fa-user-o mr-3 text-gray-400 group-hover:text-primary transition-colors"></i>
+                    <span class="group-hover:underline">高红亮：13365026880</span>
+                </a></li>
+                <li><a href="tel:17518841777" class="hover:text-primary transition-colors flex items-center group">
+                    <i class="fa fa-user-o mr-3 text-gray-400 group-hover:text-primary transition-colors"></i>
+                    <span class="group-hover:underline">赵永：17518841777</span>
+                </a></li>
+            </ul>
+        </div>
+
+        <!-- 福安 & 福鼎区域卡片 -->
+        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-100 hover:border-primary/20">
+            <div class="flex items-center mb-5">
+                <div class="w-14 h-14 bg-primary/15 rounded-full flex items-center justify-center text-primary mr-5 transition-all duration-300 hover:bg-primary hover:text-white">
+                    <i class="fa fa-phone-square text-2xl"></i>
+                </div>
+                <h5 class="font-semibold text-gray-800 text-xl">福安 & 福鼎区域</h5>
+            </div>
+            <ul class="space-y-4 text-gray-700 pl-19">
+                <li><a href="tel:13656956006" class="hover:text-primary transition-colors flex items-center group">
+                    <i class="fa fa-user-o mr-3 text-gray-400 group-hover:text-primary transition-colors"></i>
+                    <span class="group-hover:underline">崔东晓（福安）：13656956006</span>
+                </a></li>
+                <li><a href="tel:13706042020" class="hover:text-primary transition-colors flex items-center group">
+                    <i class="fa fa-user-o mr-3 text-gray-400 group-hover:text-primary transition-colors"></i>
+                    <span class="group-hover:underline">许小军（福鼎）：13706042020</span>
+                </a></li>
+            </ul>
+        </div>
+
+        <!-- 其他区域卡片 -->
+        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-100 hover:border-primary/20">
+            <div class="flex items-center mb-5">
+                <div class="w-14 h-14 bg-primary/15 rounded-full flex items-center justify-center text-primary mr-5 transition-all duration-300 hover:bg-primary hover:text-white">
+                    <i class="fa fa-phone-square text-2xl"></i>
+                </div>
+                <h5 class="font-semibold text-gray-800 text-xl">其他区域</h5>
+            </div>
+            <ul class="space-y-4 text-gray-700 pl-19">
+                <li><a href="tel:18060310172" class="hover:text-primary transition-colors flex items-center group">
+                    <i class="fa fa-user-o mr-3 text-gray-400 group-hover:text-primary transition-colors"></i>
+                    <span class="group-hover:underline">潘德强（厦门）：18060310172</span>
+                </a></li>
+                <li><a href="tel:17734791912" class="hover:text-primary transition-colors flex items-center group">
+                    <i class="fa fa-user-o mr-3 text-gray-400 group-hover:text-primary transition-colors"></i>
+                    <span class="group-hover:underline">张冉冉（山东/江苏）：17734791912</span>
+                </a></li>
+                <li><a href="tel:18059300218" class="hover:text-primary transition-colors flex items-center group">
+                    <i class="fa fa-user-o mr-3 text-gray-400 group-hover:text-primary transition-colors"></i>
+                    <span class="group-hover:underline">小魏（福州罗源）：18059300218</span>
+                </a></li>
+                <li><a href="tel:17326651738" class="hover:text-primary transition-colors flex items-center group">
+                    <i class="fa fa-user-o mr-3 text-gray-400 group-hover:text-primary transition-colors"></i>
+                    <span class="group-hover:underline">小景（福州罗源）：17326651738</span>
+                </a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 温馨提示 -->
+    <div class="mt-10 text-center text-gray-600 text-sm bg-white/60 backdrop-blur-sm rounded-lg p-4 border border-gray-100">
+        <i class="fa fa-info-circle text-primary mr-2"></i>
+        点击电话号码可直接拨号！！
+    </div>
+</section>
