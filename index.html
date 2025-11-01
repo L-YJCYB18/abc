@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>汇聚人力招聘平台</title>
-    <!-- 外部资源引入（保持CDN稳定性） -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 引入 Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         // Tailwind配置：精简主题扩展，保持色彩一致性
         tailwind.config = {
@@ -55,18 +56,335 @@
             .tag-sit {
                 @apply bg-pink-100 text-pink-700;
             }
-            .menu-item {
-                @apply py-3 px-4 text-white text-base border-b-0 border-r border-primary/30 hover:bg-secondary transition-colors duration-200 flex items-center;
-            /* 移除竖排的下边框，改为横排的右边框；调整内边距和字体大小 */
+        }
+        /* 基础变量定义（统一样式规范） */
+        :root {
+            --primary: #2563eb; /* 主色调-蓝色 */
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --highlight: #f97316; /* 强调色-橙色 */
+            --secondary: #1e3a8a; /* 次要色-深蓝 */
+            --text-white: #ffffff;
+            --text-light: #e0e7ff; /* 浅色文字 */
+            --border-light: rgba(255, 255, 255, 0.1);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease; /* 统一过渡效果 */
+        }
+
+        /* 重置默认样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            line-height: 1.5;
+            background-color: #f8fafc;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 布局工具类 */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .justify-end {
+            justify-content: flex-end;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .sticky {
+            position: sticky;
+        }
+
+        .top-0 {
+            top: 0;
+        }
+
+        .z-50 {
+            z-index: 50;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .py-8 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .py-12 {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+        }
+
+        .text-4xl {
+            font-size: 2.25rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .shadow-md {
+            box-shadow: var(--shadow);
+        }
+
+        .bg-primary {
+            background-color: var(--primary);
+        }
+
+        .bg-secondary {
+            background-color: var(--secondary);
+        }
+
+        .text-white {
+            color: var(--text-white);
+        }
+
+        .text-light {
+            color: var(--text-light);
+        }
+
+        .border-b {
+            border-bottom: 1px solid;
+        }
+
+        .border-primary\/30 {
+            border-color: rgba(37, 99, 235, 0.3);
+        }
+
+        .overflow-x-auto {
+            overflow-x: auto;
+        }
+
+        .space-x-3 {
+            gap: 0.75rem;
+        }
+
+        .whitespace-nowrap {
+            white-space: nowrap;
+        }
+
+        .min-w-\[110px\] {
+            min-width: 110px;
+        }
+
+        .min-w-\[160px\] {
+            min-width: 160px;
+        }
+
+        .bg-highlight\/30 {
+            background-color: rgba(249, 115, 22, 0.3);
+        }
+
+        /* 导航栏样式 */
+        .hamburger-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-white);
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .hamburger-btn:hover {
+            color: var(--text-light);
+            transform: scale(1.1);
+        }
+
+        /* 移动端菜单样式 */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            background-color: var(--primary-dark);
+            color: var(--text-white);
+            overflow: hidden;
+            transition: var(--transition);
+            z-index: 60; /* 高于遮罩层 */
+        }
+
+        .mobile-menu.active {
+            height: 220px; /* 固定菜单高度，避免内容撑开异常 */
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .menu-item.bg-highlight\/30:hover {
+            background-color: rgba(249, 115, 22, 0.4);
+        }
+
+        .menu-icon {
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* 横排菜单滚动条美化 */
+        .mobile-menu .flex::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .mobile-menu .flex::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .mobile-menu .flex::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .mobile-menu .flex::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* 遮罩层样式 */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 55; /* 低于菜单，高于页面内容 */
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 响应式调整 */
+        @media (min-width: 768px) {
+            /* 桌面端隐藏汉堡按钮和移动端菜单 */
+            .hamburger-btn, .mobile-menu, .menu-overlay {
+                display: none;
             }
-            .overflow-x-auto::-webkit-scrollbar {
-            @apply h-0;
+
+            /* 桌面端导航菜单 */
+            .desktop-menu {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
             }
+
+            .desktop-menu .menu-item {
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            /* 移动端隐藏桌面端菜单 */
+            .desktop-menu {
+                display: none;
+            }
+
+            /* 调整移动端文字大小 */
+            .text-xl {
+                font-size: 1.1rem;
+            }
+
+            .text-2xl {
+                font-size: 1.3rem;
+            }
+
+            .text-3xl {
+                font-size: 1.6rem;
+            }
+
+            .text-4xl {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Banner 区域优化 */
+        .banner h2 {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .banner p {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
-<body class="bg-gray-50 font-sans text-gray-800">
-    <!-- 顶部导航栏（新增移动端菜单交互） -->
+<body>
+    <!-- 顶部导航栏（移动端+桌面端适配优化版） -->
     <header class="bg-primary text-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <!-- 品牌Logo -->
@@ -74,73 +392,127 @@
                 <i class="fa fa-users text-2xl mr-2"></i>
                 <h1 class="text-xl md:text-2xl font-bold">汇聚人力招聘平台</h1>
             </div>
-            
-            <!-- 桌面端导航 -->
-            <nav class="hidden md:flex items-center space-x-6">
-                <a href="#ningde" class="hover:text-light transition-colors">宁德厂区</a>
-                <a href="#fu'an" class="hover:text-light transition-colors">福安厂区</a>
-                <a href="#luoyuan" class="hover:text-light transition-colors">罗源厂区</a>
-                <a href="#contact" class="hover:text-light transition-colors">联系我们</a>
+
+            <!-- 桌面端菜单 -->
+            <nav class="desktop-menu">
+                <a href="#ningde" class="menu-item">
+                    <i class="fa fa-map-marker menu-icon"></i>
+                    宁德厂区
+                </a>
+                <a href="#fu'an" class="menu-item">
+                    <i class="fa fa-map-marker menu-icon"></i>
+                    福安厂区
+                </a>
+                <a href="#luoyuan" class="menu-item">
+                    <i class="fa fa-map-marker menu-icon"></i>
+                    罗源厂区
+                </a>
+                <a href="#contact" class="menu-item">
+                    <i class="fa fa-phone menu-icon"></i>
+                    联系我们
+                </a>
+                <a href="tel:18059300218" class="menu-item bg-highlight/30 font-medium">
+                    <i class="fa fa-phone-square menu-icon"></i>
+                    立即咨询
+                </a>
             </nav>
-            
-        <!-- 移动端汉堡按钮 -->
+
+            <!-- 移动端汉堡按钮 -->
             <button id="hamburgerBtn" class="hamburger-btn md:hidden">
                 <i class="fa fa-bars text-xl" id="menuIcon"></i>
             </button>
         </div>
-        
-        <!-- 移动端侧边菜单（默认隐藏） -->
+
+        <!-- 移动端横排菜单 -->
         <nav id="mobileMenu" class="mobile-menu">
-            <div class="flex justify-end p-4">
+            <!-- 关闭按钮 -->
+            <div class="flex justify-end p-3 border-b border-primary/30">
                 <button id="closeMenuBtn" class="hamburger-btn">
                     <i class="fa fa-times text-xl"></i>
                 </button>
             </div>
-           <!-- 移动端侧边菜单（改为横排显示） -->
-<nav id="mobileMenu" class="mobile-menu">
-    <!-- 关闭按钮保持不变 -->
-    <div class="flex justify-end p-4">
-        <button id="closeMenuBtn" class="hamburger-btn">
-            <i class="fa fa-times text-xl"></i>
-        </button>
-    </div>
-    <!-- 关键修改：flex-col 改为 flex-row，添加横向滚动和布局适配 -->
-    <div class="flex flex-row items-center justify-start overflow-x-auto py-4 px-2 space-x-2">
-        <a href="#ningde" class="menu-item whitespace-nowrap min-w-[120px] justify-center" onclick="closeMenu()">
-            <i class="fa fa-map-marker menu-icon"></i>
-            宁德厂区
-        </a>
-        <a href="#fu'an" class="menu-item whitespace-nowrap min-w-[120px] justify-center" onclick="closeMenu()">
-            <i class="fa fa-map-marker menu-icon"></i>
-            福安厂区
-        </a>
-        <a href="#luoyuan" class="menu-item whitespace-nowrap min-w-[120px] justify-center" onclick="closeMenu()">
-            <i class="fa fa-map-marker menu-icon"></i>
-            罗源厂区
-        </a>
-        <a href="#contact" class="menu-item whitespace-nowrap min-w-[120px] justify-center" onclick="closeMenu()">
-            <i class="fa fa-phone menu-icon"></i>
-            联系我们
-        </a>
-        <!-- 快速咨询入口（适配横排，调整宽度和样式） -->
-        <a href="tel:18059300218" class="menu-item bg-highlight/20 text-white font-medium whitespace-nowrap min-w-[180px] justify-center" onclick="closeMenu()">
-            <i class="fa fa-phone-square menu-icon"></i>
-            立即咨询
-        </a>
-    </div>
-</nav>
-        
-        <!-- 菜单遮罩层（防止滚动穿透） -->
+            <!-- 横排菜单容器 -->
+            <div class="flex flex-row items-center justify-start overflow-x-auto py-3 px-4 space-x-3">
+                <a href="#ningde" class="menu-item whitespace-nowrap min-w-[110px] justify-center" onclick="closeMenu()">
+                    <i class="fa fa-map-marker menu-icon"></i>
+                    宁德厂区
+                </a>
+                <a href="#fu'an" class="menu-item whitespace-nowrap min-w-[110px] justify-center" onclick="closeMenu()">
+                    <i class="fa fa-map-marker menu-icon"></i>
+                    福安厂区
+                </a>
+                <a href="#luoyuan" class="menu-item whitespace-nowrap min-w-[110px] justify-center" onclick="closeMenu()">
+                    <i class="fa fa-map-marker menu-icon"></i>
+                    罗源厂区
+                </a>
+                <a href="#contact" class="menu-item whitespace-nowrap min-w-[110px] justify-center" onclick="closeMenu()">
+                    <i class="fa fa-phone menu-icon"></i>
+                    联系我们
+                </a>
+                <a href="tel:18059300218" class="menu-item bg-highlight/30 text-white font-medium whitespace-nowrap min-w-[160px] justify-center" onclick="closeMenu()">
+                    <i class="fa fa-phone-square menu-icon"></i>
+                    立即咨询
+                </a>
+            </div>
+        </nav>
+
+        <!-- 菜单遮罩层 -->
         <div id="menuOverlay" class="menu-overlay"></div>
     </header>
 
-    <!-- banner区域（强化视觉层级） -->
-    <section class="bg-secondary py-8 md:py-12">
+    <!-- banner区域（强化视觉层级+文字阴影） -->
+    <section class="banner bg-secondary py-8 md:py-12">
         <div class="container mx-auto px-4 text-center text-white">
             <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">长期工/小时工 火热招聘中</h2>
             <p class="text-light text-lg md:text-xl">多厂区可选 | 包吃住 | 高薪资福利 | 部分岗位日结</p>
         </div>
     </section>
+
+    <script>
+        // 获取DOM元素
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const menuIcon = document.getElementById('menuIcon');
+
+        // 打开菜单
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 禁止页面滚动
+            menuIcon.classList.replace('fa-bars', 'fa-times');
+        }
+
+        // 关闭菜单
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = ''; // 恢复页面滚动
+            menuIcon.classList.replace('fa-times', 'fa-bars');
+        }
+
+        // 事件监听
+        hamburgerBtn.addEventListener('click', function() {
+            if (mobileMenu.classList.contains('active')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        closeMenuBtn.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', closeMenu);
+
+        // 窗口大小变化时自动关闭菜单（避免移动端切换桌面端后菜单残留）
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                closeMenu();
+            }
+        });
+    </script>
+</body>
+
 
     <!-- 招聘主体内容（优化网格响应式，高亮关键信息） -->
     <main class="container mx-auto px-4 py-8">
@@ -988,3 +1360,4 @@
         点击电话号码可直接拨号！！
     </div>
 </section>
+</html>
