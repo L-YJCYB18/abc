@@ -431,29 +431,30 @@
                     <i class="fa fa-times text-xl"></i>
                 </button>
             </div>
-            <!-- 横排菜单容器 -->
-            <div class="flex flex-row items-center justify-start overflow-x-auto py-3 px-4 space-x-3">
-                <a href="#ningde" class="menu-item whitespace-nowrap min-w-[110px] justify-center" onclick="closeMenu()">
-                    <i class="fa fa-map-marker menu-icon"></i>
-                    宁德厂区
-                </a>
-                <a href="#fu'an" class="menu-item whitespace-nowrap min-w-[110px] justify-center" onclick="closeMenu()">
-                    <i class="fa fa-map-marker menu-icon"></i>
-                    福安厂区
-                </a>
-                <a href="#luoyuan" class="menu-item whitespace-nowrap min-w-[110px] justify-center" onclick="closeMenu()">
-                    <i class="fa fa-map-marker menu-icon"></i>
-                    罗源厂区
-                </a>
-                <a href="#contact" class="menu-item whitespace-nowrap min-w-[110px] justify-center" onclick="closeMenu()">
-                    <i class="fa fa-phone menu-icon"></i>
-                    联系我们
-                </a>
-                <a href="tel:18059300218" class="menu-item bg-highlight/30 text-white font-medium whitespace-nowrap min-w-[160px] justify-center" onclick="closeMenu()">
-                    <i class="fa fa-phone-square menu-icon"></i>
-                    立即咨询
-                </a>
-            </div>
+         <!-- 竖排菜单容器（核心修改：flex方向改为column，调整间距和对齐） -->
+    <div class="flex flex-col items-center justify-center py-4 px-6 space-y-4">
+        <a href="#ningde" class="menu-item whitespace-nowrap w-full justify-center" onclick="closeMenu()">
+            <i class="fa fa-map-marker menu-icon"></i>
+            宁德厂区
+        </a>
+        <a href="#fu'an" class="menu-item whitespace-nowrap w-full justify-center" onclick="closeMenu()">
+            <i class="fa fa-map-marker menu-icon"></i>
+            福安厂区
+        </a>
+        <a href="#luoyuan" class="menu-item whitespace-nowrap w-full justify-center" onclick="closeMenu()">
+            <i class="fa fa-map-marker menu-icon"></i>
+            罗源厂区
+        </a>
+        <a href="#contact" class="menu-item whitespace-nowrap w-full justify-center" onclick="closeMenu()">
+            <i class="fa fa-phone menu-icon"></i>
+            联系我们
+        </a>
+        <!-- 立即咨询按钮：单独加大间距，强化视觉突出 -->
+        <a href="tel:18059300218" class="menu-item bg-highlight/30 text-white font-medium whitespace-nowrap w-full justify-center mt-2" onclick="closeMenu()">
+            <i class="fa fa-phone-square menu-icon"></i>
+            立即咨询
+        </a>
+    </div>
         </nav>
 
         <!-- 菜单遮罩层 -->
