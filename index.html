@@ -55,6 +55,13 @@
             .tag-sit {
                 @apply bg-pink-100 text-pink-700;
             }
+            .menu-item {
+                @apply py-3 px-4 text-white text-base border-b-0 border-r border-primary/30 hover:bg-secondary transition-colors duration-200 flex items-center;
+            /* 移除竖排的下边框，改为横排的右边框；调整内边距和字体大小 */
+            }
+            .overflow-x-auto::-webkit-scrollbar {
+            @apply h-0;
+            }
         }
     </style>
 </head>
@@ -89,30 +96,39 @@
                     <i class="fa fa-times text-xl"></i>
                 </button>
             </div>
-            <div class="flex flex-col">
-                <a href="#ningde" class="menu-item" onclick="closeMenu()">
-                    <i class="fa fa-map-marker menu-icon"></i>
-                    宁德厂区
-                </a>
-                <a href="#fu'an" class="menu-item" onclick="closeMenu()">
-                    <i class="fa fa-map-marker menu-icon"></i>
-                    福安厂区
-                </a>
-                <a href="#luoyuan" class="menu-item" onclick="closeMenu()">
-                    <i class="fa fa-map-marker menu-icon"></i>
-                    罗源厂区
-                </a>
-                <a href="#contact" class="menu-item" onclick="closeMenu()">
-                    <i class="fa fa-phone menu-icon"></i>
-                    联系我们
-                </a>
-                <!-- 新增：快速咨询入口（移动端专属） -->
-                <a href="tel:400-123-4567" class="menu-item bg-highlight/20 text-white font-medium">
-                    <i class="fa fa-phone-square menu-icon"></i>
-                    立即咨询：18059300218 17326651738
-                </a>
-            </div>
-        </nav>
+           <!-- 移动端侧边菜单（改为横排显示） -->
+<nav id="mobileMenu" class="mobile-menu">
+    <!-- 关闭按钮保持不变 -->
+    <div class="flex justify-end p-4">
+        <button id="closeMenuBtn" class="hamburger-btn">
+            <i class="fa fa-times text-xl"></i>
+        </button>
+    </div>
+    <!-- 关键修改：flex-col 改为 flex-row，添加横向滚动和布局适配 -->
+    <div class="flex flex-row items-center justify-start overflow-x-auto py-4 px-2 space-x-2">
+        <a href="#ningde" class="menu-item whitespace-nowrap min-w-[120px] justify-center" onclick="closeMenu()">
+            <i class="fa fa-map-marker menu-icon"></i>
+            宁德厂区
+        </a>
+        <a href="#fu'an" class="menu-item whitespace-nowrap min-w-[120px] justify-center" onclick="closeMenu()">
+            <i class="fa fa-map-marker menu-icon"></i>
+            福安厂区
+        </a>
+        <a href="#luoyuan" class="menu-item whitespace-nowrap min-w-[120px] justify-center" onclick="closeMenu()">
+            <i class="fa fa-map-marker menu-icon"></i>
+            罗源厂区
+        </a>
+        <a href="#contact" class="menu-item whitespace-nowrap min-w-[120px] justify-center" onclick="closeMenu()">
+            <i class="fa fa-phone menu-icon"></i>
+            联系我们
+        </a>
+        <!-- 快速咨询入口（适配横排，调整宽度和样式） -->
+        <a href="tel:18059300218" class="menu-item bg-highlight/20 text-white font-medium whitespace-nowrap min-w-[180px] justify-center" onclick="closeMenu()">
+            <i class="fa fa-phone-square menu-icon"></i>
+            立即咨询
+        </a>
+    </div>
+</nav>
         
         <!-- 菜单遮罩层（防止滚动穿透） -->
         <div id="menuOverlay" class="menu-overlay"></div>
